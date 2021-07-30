@@ -46,7 +46,7 @@ public class SignupActivity extends AppCompatActivity {
 
         Button signupButton = findViewById(R.id.signup_btn);
 
-        ProgressBar signupProgressBar = findViewById(R.id.login_progressbar);
+        ProgressBar signupProgressBar = findViewById(R.id.signup_progressbar);
 
         View parentLayout = findViewById(android.R.id.content);
 
