@@ -71,21 +71,22 @@ class CoinNewsItemView @JvmOverloads constructor(
         val newsResult = coinNewsItemModuleData.cryptoPanicNews.results
         if (newsResult != null && newsResult.isNotEmpty()) {
             tvFirstArticleTitle.text = newsResult[0].title
-
+            tvFirstArticleTime.text = formaters.parseAndFormatIsoDate(newsResult[0].created_at, true)
             clFirstArticle.setOnClickListener {
                 openCustomTab(newsResult[0].url, context)
             }
 
             if (newsResult.size > 1) {
                 tvSecondArticleTitle.text = newsResult[1].title
-                 clSecondArticle.setOnClickListener {
+                tvSecondArticleTime.text = formaters.parseAndFormatIsoDate(newsResult[1].created_at, true)
+                clSecondArticle.setOnClickListener {
                     openCustomTab(newsResult[1].url, context)
                 }
             }
 
             if (newsResult.size > 2) {
                 tvThirdArticleTitle.text = newsResult[2].title
-
+                tvThirdArticleTime.text = formaters.parseAndFormatIsoDate(newsResult[2].created_at, true)
                 clThirdArticle.setOnClickListener {
                     openCustomTab(newsResult[2].url, context)
                 }
