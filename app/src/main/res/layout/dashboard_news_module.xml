@@ -8,35 +8,20 @@
     android:layout_marginStart="@dimen/generic14dp"
     android:layout_marginEnd="@dimen/generic14dp"
     android:stateListAnimator="@animator/card_down_animation"
-    android:foreground="?attr/selectableItemBackground">
+    >
 
-
-    <ImageView
+    <com.google.android.ads.nativetemplates.TemplateView
         android:id="@+id/ivAnnouncement"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
+        app:gnt_template_type="@layout/gnt_small_template_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/generic24dp"
         android:layout_marginBottom="@dimen/generic24dp"
-        android:contentDescription="@string/cdNewsArticle"
-        android:src="@drawable/news_icon"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        />
 
-    <TextView
-        android:id="@+id/tvNewsTitle"
-        style="@style/CoinBitText.Title"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/generic8dp"
-        android:layout_marginEnd="@dimen/generic8dp"
-        android:ellipsize="end"
-        android:maxLines="2"
-        app:layout_constraintBottom_toBottomOf="@id/ivAnnouncement"
-        app:layout_constraintStart_toEndOf="@id/ivAnnouncement"
-        app:layout_constraintTop_toTopOf="@id/ivAnnouncement"
-        app:layout_constraintEnd_toEndOf="parent"
-        tools:text="Some random news, Some random news, Some random news" />
 
     <androidx.core.widget.ContentLoadingProgressBar
         android:id="@+id/pbLoading"

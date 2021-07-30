@@ -65,6 +65,10 @@
             android:name="com.binarybricks.coinbit.features.ticker.CoinTickerActivity"
             android:parentActivityName="com.binarybricks.coinbit.features.coindetails.CoinDetailsPagerActivity" />
 
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-2462617926038936~9295877573"/>
+
     </application>
 
 </manifest>

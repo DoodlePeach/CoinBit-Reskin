@@ -76,39 +76,9 @@ class SettingsFragment : Fragment(), SettingsContract.View {
             inflatedView.pbLoadingExchangeList.visibility = View.VISIBLE
         }
 
-        inflatedView.clRate.setOnClickListener {
-            rateCoinBit(requireContext())
-        }
-
-        inflatedView.clShare.setOnClickListener {
-            shareCoinBit(requireContext())
-        }
-
-        inflatedView.clFeedback.setOnClickListener {
-            sendEmail(requireContext(), getString(R.string.email_address), getString(R.string.feedback_coinbit), "Hello, \n")
-        }
-
-        inflatedView.clPrivacy.setOnClickListener {
-            openCustomTab(getString(R.string.privacyPolicyUrl), requireContext())
-        }
 
         inflatedView.tvAppVersionValue.text = BuildConfig.VERSION_NAME
 
-        inflatedView.clAttribution.setOnClickListener {
-            openCustomTab(getString(R.string.attributionUrl), requireContext())
-        }
-
-        inflatedView.clCryptoCompare.setOnClickListener {
-            openCustomTab(getString(R.string.crypto_compare_url), requireContext())
-        }
-
-        inflatedView.clCoinGecko.setOnClickListener {
-            openCustomTab(getString(R.string.coin_gecko_url), requireContext())
-        }
-
-        inflatedView.clCryptoPanic.setOnClickListener {
-            openCustomTab(getString(R.string.crypto_panic_url), requireContext())
-        }
     }
 
     private fun openCurrencyPicker() {

@@ -14,6 +14,7 @@ import com.binarybricks.coinbit.features.CryptoCompareRepository
 import com.binarybricks.coinbit.features.HomeActivity
 import com.binarybricks.coinbit.utils.CoinBitExtendedCurrency
 import com.binarybricks.coinbit.utils.ui.IntroPageTransformer
+import com.google.android.gms.ads.MobileAds
 import com.google.android.material.snackbar.Snackbar
 import com.mynameismidori.currencypicker.CurrencyPicker
 import kotlinx.android.synthetic.main.activity_launch.*
@@ -36,6 +37,9 @@ class LaunchActivity : AppCompatActivity(), LaunchContract.View {
 
         launchPresenter.attachView(this)
         lifecycle.addObserver(launchPresenter)
+
+        MobileAds.initialize(this) {}
+
 
         // determine if this is first time, if yes then show the animations else move away
         if (!PreferenceManager.getPreference(this, PreferenceManager.IS_LAUNCH_FTU_SHOWN, false)) {
