@@ -88,9 +88,10 @@ class SettingsFragment : Fragment(), SettingsContract.View {
             auth = FirebaseAuth.getInstance()
             auth.signOut()
 
+            activity?.finishAffinity()
+
             // Then, clear the activity stack and start from the login activity again.
             val loginIntent = Intent(context, LoginActivity::class.java)
-            loginIntent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
             startActivity(loginIntent)
         })
     }
