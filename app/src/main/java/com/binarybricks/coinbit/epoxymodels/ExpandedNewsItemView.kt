@@ -49,7 +49,7 @@ class ExpandedNewsItemView @JvmOverloads constructor(
         tvSource.text = discoveryNewsModuleData.coinNews.source
         tvHeadlines.text = discoveryNewsModuleData.coinNews.title
         if (discoveryNewsModuleData.coinNews.published_on != null) {
-            tvTimePeriod.text = Formaters(androidResourceManager).formatTransactionDate(discoveryNewsModuleData.coinNews.published_on)
+//            tvTimePeriod.text = Formaters(androidResourceManager).formatTransactionDate(discoveryNewsModuleData.coinNews.published_on)
         }
 
         ivNewsCover.load(discoveryNewsModuleData.coinNews.imageurl) {

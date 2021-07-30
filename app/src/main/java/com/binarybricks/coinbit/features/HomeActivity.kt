@@ -3,16 +3,22 @@ package com.binarybricks.coinbit.features
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentManager.POP_BACK_STACK_INCLUSIVE
 import com.binarybricks.coinbit.R
 import com.binarybricks.coinbit.features.coinsearch.CoinDiscoveryFragment
 import com.binarybricks.coinbit.features.dashboard.CoinDashboardFragment
 import com.binarybricks.coinbit.features.settings.SettingsFragment
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.LoadAdError
+import com.google.android.gms.ads.interstitial.InterstitialAd
+import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
 import com.google.firebase.crashlytics.FirebaseCrashlytics
 import kotlinx.android.synthetic.main.activity_home.*
 
 class HomeActivity : AppCompatActivity() {
+    private var mInterstitialAd: InterstitialAd? = null;
 
     companion object {
         @JvmStatic
@@ -36,14 +42,17 @@ class HomeActivity : AppCompatActivity() {
         bottomNavigation.setOnNavigationItemSelectedListener {
             when (it.itemId) {
                 R.id.actionHome -> {
+                    showInterstitialAd()
                     switchToDashboard(savedInstanceState)
                 }
 
                 R.id.actionSearch -> {
+                    showInterstitialAd()
                     switchToSearch(savedInstanceState)
                 }
 
                 R.id.actionSettings -> {
+                    showInterstitialAd()
                     switchToSettings(savedInstanceState)
                 }
             }
@@ -102,5 +111,27 @@ class HomeActivity : AppCompatActivity() {
             .setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right)
             .addToBackStack(FRAGMENT_OTHER)
             .commit()
+    }
+
+    private fun showInterstitialAd(){
+        var adRequest = AdRequest.Builder().build()
+        InterstitialAd.load(this,"ca-app-pub-2462617926038936/7791224217", adRequest, object : InterstitialAdLoadCallback() {
+            override fun onAdFailedToLoad(adError: LoadAdError) {
+                Log.d("MainActivity", adError?.message)
+                mInterstitialAd = null
+            }
+
+            override fun onAdLoaded(interstitialAd: InterstitialAd) {
+                Log.d("MainActivity", "Ad was loaded.")
+                mInterstitialAd = interstitialAd
+            }
+        })
+
+        if (mInterstitialAd != null) {
+            mInterstitialAd?.show(this)
+        } else {
+            Log.d("TAG", "The interstitial ad wasn't ready yet.")
+        }
+
     }
 }

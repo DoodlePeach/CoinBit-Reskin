@@ -95,7 +95,7 @@ class NewsListActivity : AppCompatActivity(), CryptoNewsContract.View {
                 newsItemView {
                     id(index)
                     title(result.title)
-                    newsDate(formatter.parseAndFormatIsoDate(result.created_at, true))
+                    newsDate("")
                     itemClickListener { _ ->
                         openCustomTab(result.url, this@NewsListActivity)
                     }

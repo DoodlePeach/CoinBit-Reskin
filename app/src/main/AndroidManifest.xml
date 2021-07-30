@@ -21,7 +21,6 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
             <intent-filter>
@@ -66,6 +65,11 @@
         <activity
             android:name=".features.ticker.CoinTickerActivity"
             android:parentActivityName=".features.coindetails.CoinDetailsPagerActivity" />
+
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-2462617926038936~9295877573"/>
+
     </application>
 
 </manifest>
