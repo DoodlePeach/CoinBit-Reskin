@@ -1,6 +1,7 @@
 package com.binarybricks.coinbit.utils
 
 import android.text.format.DateFormat
+import android.util.Log
 import com.binarybricks.coinbit.R
 import com.binarybricks.coinbit.utils.resourcemanager.AndroidResourceManager
 import timber.log.Timber
@@ -131,6 +132,9 @@ class Formaters(private val androidResourceManager: AndroidResourceManager) {
             } else {
                 simpleDateFormatMonthDayYear.format(date)
             }
+
+
+
         } catch (ex: ParseException) {
             Timber.e(ex)
         }
