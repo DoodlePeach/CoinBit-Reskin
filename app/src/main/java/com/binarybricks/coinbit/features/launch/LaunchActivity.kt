@@ -1,6 +1,7 @@
 package com.binarybricks.coinbit.features.launch
 
 import LaunchContract
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
@@ -8,18 +9,24 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import com.binarybricks.coinbit.CoinBitApplication
+import com.binarybricks.coinbit.LoginActivity
 import com.binarybricks.coinbit.R
+import com.binarybricks.coinbit.SignupActivity
 import com.binarybricks.coinbit.data.PreferenceManager
 import com.binarybricks.coinbit.features.CryptoCompareRepository
 import com.binarybricks.coinbit.features.HomeActivity
 import com.binarybricks.coinbit.utils.CoinBitExtendedCurrency
 import com.binarybricks.coinbit.utils.ui.IntroPageTransformer
 import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import com.mynameismidori.currencypicker.CurrencyPicker
 import kotlinx.android.synthetic.main.activity_launch.*
 import timber.log.Timber
 
 class LaunchActivity : AppCompatActivity(), LaunchContract.View {
+    private lateinit var auth: FirebaseAuth
 
     private val coinRepo by lazy {
         CryptoCompareRepository(CoinBitApplication.database)
@@ -43,7 +50,23 @@ class LaunchActivity : AppCompatActivity(), LaunchContract.View {
 
             launchPresenter.loadAllCoins()
         } else {
-            startActivity(HomeActivity.buildLaunchIntent(this))
+            // Initialize Firebase Auth
+            auth = Firebase.auth
+
+            // Check if user is signed in (non-null) and update UI accordingly.
+            val currentUser = auth.currentUser
+
+            // If this is not the user's first time opening the app and they are not signed in,
+            // show them the login page.
+            if(currentUser == null) {
+                val intent = Intent(this, LoginActivity::class.java);
+                startActivity(intent)
+            }
+            else {
+                val intent = Intent(this, HomeActivity::class.java);
+                startActivity(intent)
+            }
+
             finish()
         }
     }
@@ -105,7 +128,18 @@ class LaunchActivity : AppCompatActivity(), LaunchContract.View {
     }
 
     override fun onAllSupportedCoinsLoaded() {
-        startActivity(HomeActivity.buildLaunchIntent(this))
+        // Initialize Firebase Auth
+        auth = Firebase.auth
+
+        // Check if user is signed in (non-null) and update UI accordingly.
+        val currentUser = auth.currentUser
+
+        // First time user's are presented with the Signup Page.
+        if(currentUser == null){
+            val intent = Intent(this, SignupActivity::class.java);
+            startActivity(intent)
+        }
+
         finish()
     }
 

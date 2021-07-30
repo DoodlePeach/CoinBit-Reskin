@@ -1,6 +1,7 @@
 package com.binarybricks.coinbit.features.settings
 
 import SettingsContract
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,11 +10,13 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.binarybricks.coinbit.BuildConfig
 import com.binarybricks.coinbit.CoinBitApplication
+import com.binarybricks.coinbit.LoginActivity
 import com.binarybricks.coinbit.R
 import com.binarybricks.coinbit.data.PreferenceManager
 import com.binarybricks.coinbit.features.CryptoCompareRepository
 import com.binarybricks.coinbit.utils.*
 import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.crashlytics.FirebaseCrashlytics
 import com.mynameismidori.currencypicker.CurrencyPicker
 import kotlinx.android.synthetic.main.fragment_settings.*
@@ -21,6 +24,7 @@ import kotlinx.android.synthetic.main.fragment_settings.view.*
 import timber.log.Timber
 
 class SettingsFragment : Fragment(), SettingsContract.View {
+    private lateinit var auth: FirebaseAuth
 
     companion object {
         const val TAG = "SettingsFragment"
@@ -109,6 +113,17 @@ class SettingsFragment : Fragment(), SettingsContract.View {
         inflatedView.clCryptoPanic.setOnClickListener {
             openCustomTab(getString(R.string.crypto_panic_url), requireContext())
         }
+
+        inflatedView.clProfile.setOnClickListener(View.OnClickListener {
+            // Invalidate the user's credentials.
+            auth = FirebaseAuth.getInstance()
+            auth.signOut()
+
+            // Then, clear the activity stack and start from the login activity again.
+            val loginIntent = Intent(context, LoginActivity::class.java)
+            loginIntent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+            startActivity(loginIntent)
+        })
     }
 
     private fun openCurrencyPicker() {

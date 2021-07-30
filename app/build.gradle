@@ -38,6 +38,9 @@ android {
     lintOptions {
         abortOnError false
     }
+    buildFeatures {
+        viewBinding true
+    }
 }
 
 androidExtensions {
@@ -58,6 +61,9 @@ tasks.named("dependencyUpdates").configure {
 }
 
 dependencies {
+    implementation 'com.google.firebase:firebase-auth-ktx:21.0.1'
+    implementation 'com.google.firebase:firebase-auth:21.0.1'
+
 
     // for testing
     testImplementation "junit:junit:${versions.junit}"
@@ -134,6 +140,9 @@ dependencies {
 
     // test
     testImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.4.2'
+
+    // Authentication page package
+    compile 'com.sirvar:robin:0.0.1'
 }
 
 kotlinter {
