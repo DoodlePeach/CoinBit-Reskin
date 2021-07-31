@@ -82,48 +82,6 @@
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/clCurrencyList"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="@dimen/generic8dp"
-                    android:background="@drawable/background_rounded_all"
-                    android:padding="@dimen/generic14dp"
-                    android:stateListAnimator="@animator/card_down_animation">
-
-
-                    <TextView
-                        style="@style/CoinBitText.Body1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/generic4dp"
-                        android:text="@string/refresh_currency_list"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <ImageView
-                        android:id="@+id/ivCurrencyList"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:contentDescription="@string/refresh"
-                        android:src="@drawable/ic_refresh"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <androidx.core.widget.ContentLoadingProgressBar
-                        android:id="@+id/pbLoadingCurrencyList"
-                        style="?android:attr/progressBarStyle"
-                        android:layout_width="@dimen/generic24dp"
-                        android:layout_height="@dimen/generic24dp"
-                        android:indeterminate="true"
-                        android:visibility="gone"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/clExchangeList"

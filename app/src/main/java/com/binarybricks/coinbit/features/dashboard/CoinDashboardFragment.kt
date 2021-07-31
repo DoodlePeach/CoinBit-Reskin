@@ -302,7 +302,7 @@ class CoinDashboardFragment : Fragment(), CoinDashboardContract.View {
                     is AddCoinItemView.AddCoinModuleItem -> addCoinItemView {
                         id("add coin")
                         addCoinClickListener { _ ->
-                            startActivityForResult(CoinSearchActivity.buildLaunchIntent(requireContext()), COIN_SEARCH_CODE)
+//                            startActivityForResult(CoinSearchActivity.buildLaunchIntent(requireContext()), COIN_SEARCH_CODE)
                         }
                     }
                     is GenericFooterItemView.FooterModuleData -> genericFooterItemView {

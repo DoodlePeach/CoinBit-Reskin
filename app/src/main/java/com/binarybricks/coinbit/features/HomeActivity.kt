@@ -76,6 +76,8 @@ class HomeActivity : AppCompatActivity() {
 
     private fun switchToDashboard(savedInstanceState: Bundle?) {
 
+
+        print("Dashboard")
         val coinDashboardFragment = supportFragmentManager.findFragmentByTag(CoinDashboardFragment.TAG)
             ?: CoinDashboardFragment()
 
@@ -91,6 +93,7 @@ class HomeActivity : AppCompatActivity() {
 
     private fun switchToSearch(savedInstanceState: Bundle?) {
 
+        print("Coin Search")
         val coinDiscoveryFragment = supportFragmentManager.findFragmentByTag(CoinDiscoveryFragment.TAG)
             ?: CoinDiscoveryFragment()
 
