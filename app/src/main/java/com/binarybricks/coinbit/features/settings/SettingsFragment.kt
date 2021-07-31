@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.binarybricks.coinbit.BuildConfig
@@ -122,7 +123,7 @@ class SettingsFragment : Fragment(), SettingsContract.View {
     }
 
     override fun onNetworkError(errorMessage: String) {
-        Snackbar.make(llSettings, errorMessage, Snackbar.LENGTH_LONG).show()
+        Toast.makeText(context, errorMessage, Toast.LENGTH_LONG).show()
     }
 
     override fun onDestroyView() {
