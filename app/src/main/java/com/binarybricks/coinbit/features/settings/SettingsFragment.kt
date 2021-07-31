@@ -123,7 +123,8 @@ class SettingsFragment : Fragment(), SettingsContract.View {
     }
 
     override fun onNetworkError(errorMessage: String) {
-        Toast.makeText(context, errorMessage, Toast.LENGTH_LONG).show()
+        // TODO: Figure out what to do about this error message.
+        // Toast.makeText(context, errorMessage, Toast.LENGTH_LONG).show()
     }
 
     override fun onDestroyView() {
