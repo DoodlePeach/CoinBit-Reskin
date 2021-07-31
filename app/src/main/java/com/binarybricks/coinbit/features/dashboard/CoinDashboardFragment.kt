@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.airbnb.epoxy.Carousel
+import com.airbnb.epoxy.EpoxyController
 import com.airbnb.epoxy.EpoxyRecyclerView
 import com.airbnb.epoxy.carousel
 import com.binarybricks.coinbit.CoinBitApplication
@@ -29,10 +30,12 @@ import com.binarybricks.coinbit.network.models.CryptoCompareNews
 import com.binarybricks.coinbit.utils.openCustomTab
 import com.binarybricks.coinbit.utils.resourcemanager.AndroidResourceManager
 import com.binarybricks.coinbit.utils.resourcemanager.AndroidResourceManagerImpl
+import com.google.android.datatransport.runtime.dagger.Module
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.crashlytics.FirebaseCrashlytics
 import kotlinx.android.synthetic.main.fragment_dashboard.view.*
 import java.util.*
+import java.util.function.Predicate
 import kotlin.collections.ArrayList
 
 class CoinDashboardFragment : Fragment(), CoinDashboardContract.View {
@@ -70,9 +73,10 @@ class CoinDashboardFragment : Fragment(), CoinDashboardContract.View {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
         val inflate = inflater.inflate(R.layout.fragment_dashboard, container, false)
-
+        
         val toolbar = inflate.toolbar
         toolbar?.title = getString(R.string.market)
+
 
         (activity as AppCompatActivity).setSupportActionBar(toolbar)
 
@@ -123,19 +127,57 @@ class CoinDashboardFragment : Fragment(), CoinDashboardContract.View {
     }
 
     private fun setupDashBoardAdapter(watchedCoinList: List<WatchedCoin>, coinTransactionList: List<CoinTransaction>) {
-
         watchedCoinList.forEach { watchedCoin ->
-            coinDashboardList.add(
-                CoinItemView.DashboardCoinModuleData(
-                    false, watchedCoin,
-                    null, coinTransactionList
+            var exists = false
+
+            coinDashboardList.forEach { checking : ModuleItem ->
+                if(checking is CoinItemView.DashboardCoinModuleData){
+                    if(checking.watchedCoin.coin.id == watchedCoin.coin.id) {
+                        exists = true
+                    }
+                }
+            }
+
+            if(!exists){
+                coinDashboardList.add(
+                    CoinItemView.DashboardCoinModuleData(
+                        false, watchedCoin,
+                        null, coinTransactionList
+                    )
                 )
-            )
+            }
         }
 
-        coinDashboardList.add(AddCoinItemView.AddCoinModuleItem)
+        val tempList = arrayListOf<ModuleItem>()
+        tempList.addAll(coinDashboardList)
+        coinDashboardList.forEach {
+            var exists = false
 
-        coinDashboardList.add(GenericFooterItemView.FooterModuleData(getString(R.string.crypto_compare), getString(R.string.crypto_compare_url)))
+            watchedCoinList.forEach { checking : WatchedCoin ->
+                if(it is CoinItemView.DashboardCoinModuleData){
+                    if(it.watchedCoin.coin.id == checking.coin.id) {
+                        exists = true
+                    }
+                }
+            }
+
+            if (!exists && it is CoinItemView.DashboardCoinModuleData) {
+                tempList.remove(it)
+            }
+        }
+
+        coinDashboardList = tempList
+
+
+        if(!coinDashboardList.contains(AddCoinItemView.AddCoinModuleItem)){
+            coinDashboardList.add(AddCoinItemView.AddCoinModuleItem)
+        }
+        else{
+            coinDashboardList.remove(AddCoinItemView.AddCoinModuleItem)
+            coinDashboardList.add(AddCoinItemView.AddCoinModuleItem)
+        }
+
+        // coinDashboardList.add(GenericFooterItemView.FooterModuleData(getString(R.string.crypto_compare), getString(R.string.crypto_compare_url)))
 
         showDashboardData(coinDashboardList)
     }
@@ -213,7 +255,7 @@ class CoinDashboardFragment : Fragment(), CoinDashboardContract.View {
     }
 
     private fun showDashboardData(coinList: List<ModuleItem>) {
-        rvDashboard.withModels {
+       rvDashboard.withModels {
             coinList.forEachIndexed { index, moduleItem ->
                 when (moduleItem) {
                     is TopCardList -> {

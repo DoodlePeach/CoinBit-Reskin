@@ -5,6 +5,7 @@ import CoinTickerContract
 import CryptoNewsContract
 import android.os.Bundle
 import android.view.*
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.binarybricks.coinbit.CoinBitApplication
 import com.binarybricks.coinbit.R
@@ -204,7 +205,7 @@ class CoinFragment : Fragment(), CoinContract.View, CryptoNewsContract.View, Coi
     }
 
     override fun onNetworkError(errorMessage: String) {
-        Snackbar.make(rvCoinDetails, errorMessage, Snackbar.LENGTH_LONG).show()
+        Toast.makeText(context, errorMessage, Toast.LENGTH_LONG).show()
     }
 
     override fun onCoinPriceLoaded(coinPrice: CoinPrice?, watchedCoin: WatchedCoin) {

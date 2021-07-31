@@ -22,7 +22,7 @@ android {
     buildTypes {
         release {
             minifyEnabled true
-            useProguard true
+            useProguard false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
@@ -143,11 +143,8 @@ dependencies {
 
     //Admob
     implementation 'com.google.android.gms:play-services-ads-lite:19.8.0'
+
     implementation project(':nativetemplates')
-
-
-    // Authentication page package
-    compile 'com.sirvar:robin:0.0.1'
 }
 
 kotlinter {
