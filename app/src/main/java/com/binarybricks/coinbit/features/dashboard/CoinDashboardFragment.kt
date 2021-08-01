@@ -127,47 +127,31 @@ class CoinDashboardFragment : Fragment(), CoinDashboardContract.View {
     }
 
     private fun setupDashBoardAdapter(watchedCoinList: List<WatchedCoin>, coinTransactionList: List<CoinTransaction>) {
+        val coinDashboardListIterator = coinDashboardList.listIterator()
+        var coins = ""
+
+        while (coinDashboardListIterator.hasNext()) {
+            val oldValue = coinDashboardListIterator.next()
+
+            if(oldValue is CoinItemView.DashboardCoinModuleData){
+                coinDashboardListIterator.remove()
+            }
+        }
+
         watchedCoinList.forEach { watchedCoin ->
-            var exists = false
-
-            coinDashboardList.forEach { checking : ModuleItem ->
-                if(checking is CoinItemView.DashboardCoinModuleData){
-                    if(checking.watchedCoin.coin.id == watchedCoin.coin.id) {
-                        exists = true
-                    }
-                }
+            coins += if(coins == ""){
+                watchedCoin.coin.name
+            } else {
+                "," + watchedCoin.coin.name
             }
 
-            if(!exists){
-                coinDashboardList.add(
-                    CoinItemView.DashboardCoinModuleData(
-                        false, watchedCoin,
-                        null, coinTransactionList
-                    )
+            coinDashboardList.add(
+                CoinItemView.DashboardCoinModuleData(
+                    false, watchedCoin,
+                    null, coinTransactionList
                 )
-            }
+            )
         }
-
-        val tempList = arrayListOf<ModuleItem>()
-        tempList.addAll(coinDashboardList)
-        coinDashboardList.forEach {
-            var exists = false
-
-            watchedCoinList.forEach { checking : WatchedCoin ->
-                if(it is CoinItemView.DashboardCoinModuleData){
-                    if(it.watchedCoin.coin.id == checking.coin.id) {
-                        exists = true
-                    }
-                }
-            }
-
-            if (!exists && it is CoinItemView.DashboardCoinModuleData) {
-                tempList.remove(it)
-            }
-        }
-
-        coinDashboardList = tempList
-
 
         if(!coinDashboardList.contains(AddCoinItemView.AddCoinModuleItem)){
             coinDashboardList.add(AddCoinItemView.AddCoinModuleItem)
@@ -176,6 +160,8 @@ class CoinDashboardFragment : Fragment(), CoinDashboardContract.View {
             coinDashboardList.remove(AddCoinItemView.AddCoinModuleItem)
             coinDashboardList.add(AddCoinItemView.AddCoinModuleItem)
         }
+
+        // coinDashboardPresenter.loadCoinsPrices(coins, PreferenceManager.getDefaultCurrency(context))
 
         // coinDashboardList.add(GenericFooterItemView.FooterModuleData(getString(R.string.crypto_compare), getString(R.string.crypto_compare_url)))
 
@@ -200,18 +186,43 @@ class CoinDashboardFragment : Fragment(), CoinDashboardContract.View {
                     fromSymbol += watchedCoin.coin.symbol
                 }
             }
+
             coinDashboardPresenter.loadCoinsPrices(fromSymbol, PreferenceManager.getDefaultCurrency(context))
         }
     }
 
     override fun onCoinPricesLoaded(coinPriceListMap: HashMap<String, CoinPrice>) {
+        val coinItems = mutableListOf<CoinItemView.DashboardCoinModuleData>()
 
         coinDashboardList.forEachIndexed { index, item ->
             if (item is CoinItemView.DashboardCoinModuleData && coinPriceListMap.contains(item.watchedCoin.coin.symbol.toUpperCase())) {
                 coinDashboardList[index] = item.copy(coinPrice = coinPriceListMap[item.watchedCoin.coin.symbol.toUpperCase()])
+                coinItems.add(coinDashboardList[index] as CoinItemView.DashboardCoinModuleData)
             } else if (item is DashboardHeaderItemView.DashboardHeaderModuleData) {
                 coinDashboardList[index] = item.copy(coinPriceListMap = coinPriceListMap)
             }
+        }
+
+        coinItems.sortByDescending { it.coinPrice?.marketCap?.toDouble() }
+
+        val coinDashboardListIterator = coinDashboardList.listIterator()
+
+        while (coinDashboardListIterator.hasNext()) {
+            val oldValue = coinDashboardListIterator.next()
+
+            if(oldValue is CoinItemView.DashboardCoinModuleData){
+                coinDashboardListIterator.remove()
+            }
+        }
+
+        coinDashboardList.addAll(coinItems)
+
+        if(!coinDashboardList.contains(AddCoinItemView.AddCoinModuleItem)){
+            coinDashboardList.add(AddCoinItemView.AddCoinModuleItem)
+        }
+        else{
+            coinDashboardList.remove(AddCoinItemView.AddCoinModuleItem)
+            coinDashboardList.add(AddCoinItemView.AddCoinModuleItem)
         }
 
         // update dashboard card

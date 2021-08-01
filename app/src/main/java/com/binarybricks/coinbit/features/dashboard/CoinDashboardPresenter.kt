@@ -4,6 +4,7 @@ import CoinDashboardContract
 import com.binarybricks.coinbit.data.CoinBitCache
 import com.binarybricks.coinbit.features.BasePresenter
 import com.binarybricks.coinbit.features.CryptoCompareRepository
+import com.binarybricks.coinbit.network.api.api
 import com.binarybricks.coinbit.network.models.CoinPrice
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect

@@ -3,6 +3,7 @@ package com.binarybricks.coinbit.features.coinsearch
 import CoinDiscoveryContract
 import com.binarybricks.coinbit.features.BasePresenter
 import com.binarybricks.coinbit.features.CryptoCompareRepository
+import com.binarybricks.coinbit.network.api.api
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
