@@ -155,4 +155,6 @@
     <string name="login_failed">"Login failed"</string>
     <string name="setting_logout">Logout</string>
     <string name="settings_profile">Profile</string>
+    <string name="email_hint">Email</string>
+    <string name="password_hint">Password</string>
 </resources>
