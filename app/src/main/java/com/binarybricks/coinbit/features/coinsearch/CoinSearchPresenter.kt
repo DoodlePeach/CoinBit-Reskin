@@ -44,7 +44,7 @@ class CoinSearchPresenter(
                             it.sortedWith(compareBy(nullsLast<Int>()) { orderBySymbol[it.coin.symbol] })
 
                         sortedNullsLast.forEachIndexed { index, watchedCoin ->
-                            watchedCoin.position = index
+                            watchedCoin.position = index + 1
                         }
 
                         currentView?.showOrHideLoadingIndicator(false)
