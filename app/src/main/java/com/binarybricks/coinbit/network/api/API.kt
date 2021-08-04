@@ -109,4 +109,9 @@ interface API {
         @Query("filter") filter: String,
         @Query("public") public: Boolean
     ): CryptoPanicNews
+
+    @GET("https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest?CMC_PRO_API_KEY=51346ca6-4c36-4265-8f4d-0db249db5d00")
+    suspend fun getCoinsSortedByMarketCap(
+        @Query("limit") limit: Int
+    ): JsonObject
 }

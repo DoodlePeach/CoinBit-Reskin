@@ -70,7 +70,7 @@ class CoinDiscoveryFragment : Fragment(), CoinDiscoveryContract.View {
         coinDiscoveryPresenter.getTopCoinListByMarketCap(PreferenceManager.getDefaultCurrency(context))
 
         // get coins by volume
-        coinDiscoveryPresenter.getTopCoinListByPairVolume()
+        // coinDiscoveryPresenter.getTopCoinListByPairVolume()
 
         setHasOptionsMenu(true)
 
@@ -86,7 +86,7 @@ class CoinDiscoveryFragment : Fragment(), CoinDiscoveryContract.View {
             coinDiscoveryPresenter.getTopCoinListByMarketCap(PreferenceManager.getDefaultCurrency(context))
 
             // get coins by volume
-            coinDiscoveryPresenter.getTopCoinListByPairVolume()
+            // coinDiscoveryPresenter.getTopCoinListByPairVolume()
 
             inflate.swipeContainer.isRefreshing = false
         }
@@ -109,6 +109,8 @@ class CoinDiscoveryFragment : Fragment(), CoinDiscoveryContract.View {
             )
         }
 
+        topCardList.sortByDescending { it.marketCap.toDouble() }
+
         if (coinDiscoveryList.size > 1) {
             coinDiscoveryList.add(0, LabelItemView.LabelModuleData(getString(R.string.top_volume)))
             coinDiscoveryList.add(1, TopCardList(topCardList))
@@ -119,6 +121,8 @@ class CoinDiscoveryFragment : Fragment(), CoinDiscoveryContract.View {
 
         // call load
         showCoins(coinDiscoveryList)
+
+        coinDiscoveryPresenter.getCryptoCurrencyNews()
     }
 
     override fun onTopCoinListByPairVolumeLoaded(topPair: List<CoinPair>) {

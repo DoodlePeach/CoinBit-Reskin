@@ -26,6 +26,7 @@ class CoinSearchItemView @JvmOverloads constructor(
 
     private val tvCoinName: TextView
     private val tvCoinSymbol: TextView
+    private val tvCoinPosition: TextView
     private val ivCoin: ImageView
     private val cbWatched: SwitchCompat
     private val clCoinInfo: View
@@ -42,6 +43,7 @@ class CoinSearchItemView @JvmOverloads constructor(
         View.inflate(context, R.layout.coin_search_item, this)
         tvCoinName = findViewById(R.id.tvCoinPercentChange)
         tvCoinSymbol = findViewById(R.id.tvCoinName)
+        tvCoinPosition = findViewById(R.id.tvCoinPosition)
         ivCoin = findViewById(R.id.ivCoin)
         cbWatched = findViewById(R.id.scWatched)
         clCoinInfo = findViewById(R.id.clCoinInfo)
@@ -51,6 +53,11 @@ class CoinSearchItemView @JvmOverloads constructor(
     fun setWatchedCoin(watchedCoin: WatchedCoin) {
         tvCoinName.text = watchedCoin.coin.coinName
         tvCoinSymbol.text = watchedCoin.coin.symbol
+        if(watchedCoin.position != null){
+            tvCoinPosition.text = watchedCoin.position.toString()
+        } else {
+            tvCoinPosition.text = "-"
+        }
 
         ivCoin.load(BASE_CRYPTOCOMPARE_IMAGE_URL + "${watchedCoin.coin.imageUrl}?width=50") {
             crossfade(true)

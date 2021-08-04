@@ -5,10 +5,13 @@ import com.binarybricks.coinbit.data.database.entities.WatchedCoin
 import com.binarybricks.coinbit.features.BasePresenter
 import com.binarybricks.coinbit.features.CryptoCompareRepository
 import com.binarybricks.coinbit.features.getTop5CoinsToWatch
+import com.binarybricks.coinbit.network.api.api
 import com.binarybricks.coinbit.network.models.CCCoin
 import com.binarybricks.coinbit.network.models.CoinInfo
+import com.binarybricks.coinbit.network.models.NameSymbolSortedPair
 import com.binarybricks.coinbit.network.models.getCoinFromCCCoin
 import com.binarybricks.coinbit.utils.defaultExchange
+import com.google.gson.JsonArray
 import kotlinx.coroutines.launch
 import timber.log.Timber
 

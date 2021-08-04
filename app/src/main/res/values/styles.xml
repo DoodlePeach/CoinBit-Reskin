@@ -57,6 +57,13 @@
         <item name="android:textSize">18sp</item>
     </style>
 
+    <style name="CoinBitText.Position" parent="CoinBitText">
+        <item name="android:textColor">@color/primaryTextColor</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+
     <style name="CoinBitText.BodyTertiary" parent="CoinBitText">
         <item name="android:textColor">@color/tertiaryTextColor</item>
         <item name="android:textSize">18sp</item>

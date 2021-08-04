@@ -101,7 +101,7 @@ class CoinSearchActivity : AppCompatActivity(), CoinSearchContract.View {
     private fun showCoinsInTheList(coinList: List<WatchedCoin>) {
 
         rvSearchList.withModels {
-            coinList.forEach { watchedCoin ->
+            coinList.forEach {  watchedCoin ->
                 coinSearchItemView {
                     id(watchedCoin.coin.id)
                     watchedCoin(watchedCoin)
