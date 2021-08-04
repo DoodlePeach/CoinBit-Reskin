@@ -63,11 +63,6 @@ class ShortNewsItemView @JvmOverloads constructor(
         adLoader.loadAd(AdRequest.Builder().build())
 
 
-//        val builder = AdLoader.Builder(
-//                context, "ca-app-pub-2462617926038936/7262967958")
-//
-//        builder.forUnifiedNativeAd { unifiedNativeAd -> nativeTemplate.setNativeAd(unifiedNativeAd) }
-//
 
 
     }
