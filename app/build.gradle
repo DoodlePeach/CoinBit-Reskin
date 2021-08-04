@@ -70,7 +70,7 @@ dependencies {
     androidTestImplementation 'androidx.test:runner:1.3.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 
-    debugImplementation "com.squareup.leakcanary:leakcanary-android:${versions.leakcanary}"
+//    debugImplementation "com.squareup.leakcanary:leakcanary-android:${versions.leakcanary}"
 
 
     implementation fileTree(dir: 'libs', include: ['*.jar'])

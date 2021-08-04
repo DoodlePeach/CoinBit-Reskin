@@ -24,7 +24,7 @@ buildscript {
             'firebasePerf'        : '19.0.10',
             'firebaseCrashlytics' : '17.3.0',
             'firebaseAnalytics'   : '18.0.0',
-            'leakcanary'          : '2.5'
+//            'leakcanary'          : '2.5'
     ]
 
     repositories {
