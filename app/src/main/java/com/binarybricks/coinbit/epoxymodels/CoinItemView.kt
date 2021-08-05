@@ -30,6 +30,7 @@ import com.binarybricks.coinbit.utils.resourcemanager.AndroidResourceManagerImpl
 import kotlinx.android.synthetic.main.dashboard_coin_module.view.*
 import java.math.BigDecimal
 import java.util.*
+import kotlin.math.absoluteValue
 
 @ModelView(autoLayout = ModelView.Size.MATCH_WIDTH_WRAP_HEIGHT)
 class CoinItemView @JvmOverloads constructor(
@@ -109,16 +110,38 @@ class CoinItemView @JvmOverloads constructor(
                 )
 
                 if (coinPrice.changePercentageDay.toDouble() < 0) {
-                    tvCoinPercentChange.setTextColor(ContextCompat.getColor(context, R.color.colorLoss))
+                    tvCoinPercentChange.setTextColor(
+                        ContextCompat.getColor(
+                            context,
+                            R.color.colorLoss
+                        )
+                    )
                 } else {
-                    tvCoinPercentChange.setTextColor(ContextCompat.getColor(context, R.color.colorGain))
+                    tvCoinPercentChange.setTextColor(
+                        ContextCompat.getColor(
+                            context,
+                            R.color.colorGain
+                        )
+                    )
                 }
             }
 
             animateCoinPrice(coinPrice.price)
             val purchaseQuantity = dashboardCoinModuleData.watchedCoin.purchaseQuantity
+            val marketCap = dashboardCoinModuleData.watchedCoin.circulatingSupply?.absoluteValue?.times(
+                dashboardCoinModuleData.coinPrice!!.price?.toDouble()!!
+            )?.let { BigDecimal(it) }?.let {
+                CoinBitExtendedCurrency.getAmountTextForDisplay(
+                    it,
+                    currency
+                )
+            }
 
-            tvCoinMarketCap.text = CoinBitExtendedCurrency.getAmountTextForDisplay(BigDecimal(coinPrice.marketCap), currency)
+            tvCoinMarketCap.text = if (marketCap.isNullOrEmpty()){
+                "-"
+            } else {
+                marketCap.toString()
+            }
 
             // check if coin is purchased
             if (purchaseQuantity > BigDecimal.ZERO) {
@@ -126,7 +149,8 @@ class CoinItemView @JvmOverloads constructor(
                 tvQuantity.text = purchaseQuantity.toPlainString()
 
                 val currentWorth = purchaseQuantity.multiply(BigDecimal(coinPrice.price))
-                val totalCost = getTotalCost(dashboardCoinModuleData.coinTransactionList, coin.symbol)
+                val totalCost =
+                    getTotalCost(dashboardCoinModuleData.coinTransactionList, coin.symbol)
 
                 tvCurrentValue.text = formatter.formatAmount(currentWorth.toPlainString(), currency)
 
@@ -135,7 +159,8 @@ class CoinItemView @JvmOverloads constructor(
                 // val totalReturnPercentage = (totalReturnAmount?.divide(totalCost, mc))?.multiply(BigDecimal(100), mc)
 
                 if (totalReturnAmount != null) {
-                    tvProfitLoss.text = formatter.formatAmount(totalReturnAmount.toPlainString(), currency)
+                    tvProfitLoss.text =
+                        formatter.formatAmount(totalReturnAmount.toPlainString(), currency)
                 }
 
                 if (totalReturnAmount != null && totalReturnAmount < BigDecimal.ZERO) {

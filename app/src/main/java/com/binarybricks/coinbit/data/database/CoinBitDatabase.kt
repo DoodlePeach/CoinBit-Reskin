@@ -13,7 +13,7 @@ import com.binarybricks.coinbit.data.database.entities.WatchedCoin
 /**
  * Created by Pragya Agrawal
  */
-@Database(entities = [Exchange::class, WatchedCoin::class, CoinTransaction::class], version = 1, exportSchema = false)
+@Database(entities = [Exchange::class, WatchedCoin::class, CoinTransaction::class], version = 2, exportSchema = false)
 @TypeConverters(BigDecimalConverter::class)
 abstract class CoinBitDatabase : RoomDatabase() {
 

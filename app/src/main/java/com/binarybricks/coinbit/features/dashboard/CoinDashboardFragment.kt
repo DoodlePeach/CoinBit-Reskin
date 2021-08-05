@@ -137,6 +137,8 @@ class CoinDashboardFragment : Fragment(), CoinDashboardContract.View {
             }
         }
 
+        watchedCoinList.sortedWith(compareBy(nullsLast()) { it.position })
+
         watchedCoinList.forEach { watchedCoin ->
             coinDashboardList.add(
                 CoinItemView.DashboardCoinModuleData(
@@ -196,27 +198,27 @@ class CoinDashboardFragment : Fragment(), CoinDashboardContract.View {
             }
         }
 
-//        coinItems.sortByDescending { it.coinPrice?.marketCap?.toDouble() }
-//
-//        val coinDashboardListIterator = coinDashboardList.listIterator()
-//
-//        while (coinDashboardListIterator.hasNext()) {
-//            val oldValue = coinDashboardListIterator.next()
-//
-//            if(oldValue is CoinItemView.DashboardCoinModuleData){
-//                coinDashboardListIterator.remove()
-//            }
-//        }
-//
-//        coinDashboardList.addAll(coinItems)
-//
-//        if(!coinDashboardList.contains(AddCoinItemView.AddCoinModuleItem)){
-//            coinDashboardList.add(AddCoinItemView.AddCoinModuleItem)
-//        }
-//        else{
-//            coinDashboardList.remove(AddCoinItemView.AddCoinModuleItem)
-//            coinDashboardList.add(AddCoinItemView.AddCoinModuleItem)
-//        }
+        coinItems.sortWith(compareBy(nullsLast()) { it.watchedCoin.position })
+
+        val coinDashboardListIterator = coinDashboardList.listIterator()
+
+        while (coinDashboardListIterator.hasNext()) {
+            val oldValue = coinDashboardListIterator.next()
+
+            if(oldValue is CoinItemView.DashboardCoinModuleData){
+                coinDashboardListIterator.remove()
+            }
+        }
+
+        coinDashboardList.addAll(coinItems)
+
+        if(!coinDashboardList.contains(AddCoinItemView.AddCoinModuleItem)){
+            coinDashboardList.add(AddCoinItemView.AddCoinModuleItem)
+        }
+        else{
+            coinDashboardList.remove(AddCoinItemView.AddCoinModuleItem)
+            coinDashboardList.add(AddCoinItemView.AddCoinModuleItem)
+        }
 
         // update dashboard card
         showDashboardData(coinDashboardList)

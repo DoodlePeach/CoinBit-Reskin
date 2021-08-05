@@ -21,6 +21,7 @@ data class WatchedCoin(
     var fromCurrency: String,
     var purchaseQuantity: BigDecimal = BigDecimal.ZERO,
     var watched: Boolean = false,
+    var circulatingSupply: Double? = null,
     var position: Int? = null,
     @ColumnInfo(name = "watched_id") @PrimaryKey(autoGenerate = true) var idKey: Long = 0
 ) : Parcelable

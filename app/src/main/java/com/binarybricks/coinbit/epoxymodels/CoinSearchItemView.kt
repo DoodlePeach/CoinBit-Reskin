@@ -53,7 +53,7 @@ class CoinSearchItemView @JvmOverloads constructor(
     fun setWatchedCoin(watchedCoin: WatchedCoin) {
         tvCoinName.text = watchedCoin.coin.coinName
         tvCoinSymbol.text = watchedCoin.coin.symbol
-        if(watchedCoin.position != null){
+        if(watchedCoin.circulatingSupply != null){
             tvCoinPosition.text = watchedCoin.position.toString()
         } else {
             tvCoinPosition.text = "-"

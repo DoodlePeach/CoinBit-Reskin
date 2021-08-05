@@ -36,9 +36,12 @@ class SettingsPresenter(
                 sortedCoinPairs.forEachIndexed { index, nameSymbolSortedPair ->
                     val found = coinList.find { it.coin.symbol == nameSymbolSortedPair.symbol }
                     if (found != null) {
-                        found.position = index
+                        found.circulatingSupply = nameSymbolSortedPair.circulatingSupply
+                        found.position = index + 1
                     }
                 }
+
+                coinRepo.insertCoinsInWatchList(coinList)
 
                 Timber.d("Inserted all coins in db with size ${coinList.size}")
                 currentView?.onCoinListRefreshed()

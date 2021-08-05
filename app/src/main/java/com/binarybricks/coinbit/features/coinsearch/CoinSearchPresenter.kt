@@ -3,6 +3,7 @@ package com.binarybricks.coinbit.features.coinsearch
 import CoinSearchContract
 import com.binarybricks.coinbit.data.PreferenceManager
 import com.binarybricks.coinbit.data.database.entities.WatchedCoin
+import com.binarybricks.coinbit.epoxymodels.CoinItemView
 import com.binarybricks.coinbit.features.BasePresenter
 import com.binarybricks.coinbit.features.CryptoCompareRepository
 import com.binarybricks.coinbit.network.api.api

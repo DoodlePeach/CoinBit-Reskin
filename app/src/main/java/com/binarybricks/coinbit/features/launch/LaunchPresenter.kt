@@ -69,7 +69,8 @@ class LaunchPresenter(
                 sortedCoinPairs.forEachIndexed { index, nameSymbolSortedPair ->
                     val found = coinList.find { it.coin.symbol == nameSymbolSortedPair.symbol }
                     if (found != null) {
-                        found.position = index
+                        found.circulatingSupply = nameSymbolSortedPair.circulatingSupply
+                        found.position = index + 1
                     }
                 }
 
