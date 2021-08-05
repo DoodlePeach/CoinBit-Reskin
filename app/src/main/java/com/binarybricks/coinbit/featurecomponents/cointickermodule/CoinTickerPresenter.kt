@@ -37,7 +37,7 @@ class CoinTickerPresenter(
                 }
             } catch (ex: Exception) {
                 Timber.e(ex.localizedMessage)
-                currentView?.onNetworkError(androidResourceManager.getString(R.string.error_ticker))
+                // currentView?.onNetworkError(androidResourceManager.getString(R.string.error_ticker))
             } finally {
                 currentView?.showOrHideLoadingIndicatorForTicker(false)
             }

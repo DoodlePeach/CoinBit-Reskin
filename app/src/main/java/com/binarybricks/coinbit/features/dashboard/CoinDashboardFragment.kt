@@ -128,7 +128,6 @@ class CoinDashboardFragment : Fragment(), CoinDashboardContract.View {
 
     private fun setupDashBoardAdapter(watchedCoinList: List<WatchedCoin>, coinTransactionList: List<CoinTransaction>) {
         val coinDashboardListIterator = coinDashboardList.listIterator()
-        var coins = ""
 
         while (coinDashboardListIterator.hasNext()) {
             val oldValue = coinDashboardListIterator.next()
@@ -139,12 +138,6 @@ class CoinDashboardFragment : Fragment(), CoinDashboardContract.View {
         }
 
         watchedCoinList.forEach { watchedCoin ->
-            coins += if(coins == ""){
-                watchedCoin.coin.name
-            } else {
-                "," + watchedCoin.coin.name
-            }
-
             coinDashboardList.add(
                 CoinItemView.DashboardCoinModuleData(
                     false, watchedCoin,
@@ -203,27 +196,27 @@ class CoinDashboardFragment : Fragment(), CoinDashboardContract.View {
             }
         }
 
-        coinItems.sortByDescending { it.coinPrice?.marketCap?.toDouble() }
-
-        val coinDashboardListIterator = coinDashboardList.listIterator()
-
-        while (coinDashboardListIterator.hasNext()) {
-            val oldValue = coinDashboardListIterator.next()
-
-            if(oldValue is CoinItemView.DashboardCoinModuleData){
-                coinDashboardListIterator.remove()
-            }
-        }
-
-        coinDashboardList.addAll(coinItems)
-
-        if(!coinDashboardList.contains(AddCoinItemView.AddCoinModuleItem)){
-            coinDashboardList.add(AddCoinItemView.AddCoinModuleItem)
-        }
-        else{
-            coinDashboardList.remove(AddCoinItemView.AddCoinModuleItem)
-            coinDashboardList.add(AddCoinItemView.AddCoinModuleItem)
-        }
+//        coinItems.sortByDescending { it.coinPrice?.marketCap?.toDouble() }
+//
+//        val coinDashboardListIterator = coinDashboardList.listIterator()
+//
+//        while (coinDashboardListIterator.hasNext()) {
+//            val oldValue = coinDashboardListIterator.next()
+//
+//            if(oldValue is CoinItemView.DashboardCoinModuleData){
+//                coinDashboardListIterator.remove()
+//            }
+//        }
+//
+//        coinDashboardList.addAll(coinItems)
+//
+//        if(!coinDashboardList.contains(AddCoinItemView.AddCoinModuleItem)){
+//            coinDashboardList.add(AddCoinItemView.AddCoinModuleItem)
+//        }
+//        else{
+//            coinDashboardList.remove(AddCoinItemView.AddCoinModuleItem)
+//            coinDashboardList.add(AddCoinItemView.AddCoinModuleItem)
+//        }
 
         // update dashboard card
         showDashboardData(coinDashboardList)
@@ -267,7 +260,7 @@ class CoinDashboardFragment : Fragment(), CoinDashboardContract.View {
 
     private fun showDashboardData(coinList: List<ModuleItem>) {
        rvDashboard.withModels {
-            coinList.forEachIndexed { index, moduleItem ->
+            coinList.forEach { moduleItem ->
                 when (moduleItem) {
                     is TopCardList -> {
                         val topCards = mutableListOf<TopCardItemViewModel_>()

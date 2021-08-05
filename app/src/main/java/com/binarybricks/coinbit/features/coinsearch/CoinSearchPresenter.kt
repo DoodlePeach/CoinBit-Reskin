@@ -33,30 +33,11 @@ class CoinSearchPresenter(
                 ?.collect { it ->
                     Timber.d("All Coins Loaded")
 
-                    try{
+                    val sortedNullsLast =
+                        it.sortedWith(compareBy(nullsLast()) { it.position })
 
-                        val sortedCoinPairs =
-                            NameSymbolSortedPair.fromJSON(api.getCoinsSortedByMarketCap(limit = 5000))
-
-                        val orderBySymbol = sortedCoinPairs.withIndex()
-                            .associate { iter -> iter.value.symbol to iter.index }
-                        val sortedNullsLast =
-                            it.sortedWith(compareBy(nullsLast<Int>()) { orderBySymbol[it.coin.symbol] })
-
-                        sortedNullsLast.forEachIndexed { index, watchedCoin ->
-                            watchedCoin.position = index + 1
-                        }
-
-                        currentView?.showOrHideLoadingIndicator(false)
-                        currentView?.onCoinsLoaded(sortedNullsLast)
-                    }
-                    catch (e: Exception){
-                        Timber.e(e)
-                        currentView?.onNetworkError("Unable to fetch market cap data")
-
-                        currentView?.showOrHideLoadingIndicator(false)
-                        currentView?.onCoinsLoaded(it)
-                    }
+                    currentView?.showOrHideLoadingIndicator(false)
+                    currentView?.onCoinsLoaded(sortedNullsLast)
                 }
         }
     }

@@ -63,6 +63,16 @@ class LaunchPresenter(
                     coinList.add(getCoinFromCCCoin(ccCoin, defaultExchange, defaultCurrency, coinInfo))
                 }
 
+                val sortedCoinPairs =
+                    NameSymbolSortedPair.fromJSON(api.getCoinsSortedByMarketCap(limit = 5000))
+
+                sortedCoinPairs.forEachIndexed { index, nameSymbolSortedPair ->
+                    val found = coinList.find { it.coin.symbol == nameSymbolSortedPair.symbol }
+                    if (found != null) {
+                        found.position = index
+                    }
+                }
+
                 coinRepo.insertCoinsInWatchList(coinList)
 
                 val top5CoinsToWatch = getTop5CoinsToWatch()

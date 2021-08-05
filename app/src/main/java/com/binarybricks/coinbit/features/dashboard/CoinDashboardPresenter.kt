@@ -51,6 +51,7 @@ class CoinDashboardPresenter(
                     CoinBitCache.coinPriceMap.putAll(coinPriceMap)
                 }
 
+
                 currentView?.onCoinPricesLoaded(coinPriceMap)
             } catch (ex: Exception) {
                 Timber.e(ex.localizedMessage)
