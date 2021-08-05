@@ -62,20 +62,20 @@ class CoinBitExtendedCurrency {
             var textAmount = amount
 
             if (amount.compareTo(TRILLION) != -1) {
-                df = DecimalFormat("###,###T;-###,###T")
+                df = DecimalFormat("###,### T;-###,### T")
                 textAmount = textAmount.divide(TRILLION, RoundingMode.HALF_UP)
             } else if (amount.compareTo(BILLION) != -1) {
-                df = DecimalFormat("###,###B;-###,###B")
+                df = DecimalFormat("###,### B;-###,###B")
                 textAmount = textAmount.divide(BILLION, RoundingMode.HALF_UP)
             } else if (amount.compareTo(MILLION) != -1) {
-                df = DecimalFormat("###,###M;-###,### M")
+                df = DecimalFormat("###,### M;-###,### M")
                 textAmount = textAmount.divide(MILLION, RoundingMode.HALF_UP)
             } else if (amount.compareTo(THOUSANDS) != -1) {
-                df = DecimalFormat("###,###K;-4###,###K")
+                df = DecimalFormat("###,### K;-4###,### K")
                 textAmount = textAmount.divide(THOUSANDS, RoundingMode.HALF_UP)
             }
 
-            return "MCap ${df.format(textAmount)}"
+            return "MCap ${amountCurrency.symbol}${df.format(textAmount)}"
         }
     }
 }
