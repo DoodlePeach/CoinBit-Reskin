@@ -69,6 +69,11 @@ class SettingsFragment : Fragment(), SettingsContract.View {
             openCurrencyPicker()
         }
 
+        inflatedView.clCurrencyList.setOnClickListener {
+            settingsPresenter.refreshCoinList(currency)
+            inflatedView.ivCurrencyList.visibility = View.INVISIBLE
+            inflatedView.pbLoadingCurrencyList.visibility = View.VISIBLE
+        }
 
         inflatedView.clExchangeList.setOnClickListener {
             settingsPresenter.refreshExchangeList()
@@ -115,6 +120,8 @@ class SettingsFragment : Fragment(), SettingsContract.View {
     }
 
     override fun onCoinListRefreshed() {
+        ivCurrencyList.visibility = View.VISIBLE
+        pbLoadingCurrencyList.visibility = View.GONE
     }
 
     override fun onExchangeListRefreshed() {
