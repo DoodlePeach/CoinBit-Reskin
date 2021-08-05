@@ -55,27 +55,27 @@ class CoinBitExtendedCurrency {
          */
         fun getAmountTextForDisplay(amount: BigDecimal, amountCurrency: Currency): String {
 
-            var df = DecimalFormat("\u00a4###,###.##;-\u00a4###,###.##")
-            df.currency = amountCurrency
+            var df = DecimalFormat("###,###.##;-###,###.##")
             df.roundingMode = RoundingMode.HALF_UP
+            df.currency = amountCurrency
 
             var textAmount = amount
 
             if (amount.compareTo(TRILLION) != -1) {
-                df = DecimalFormat("\u00a4###,### T;-\u00a4###,### T")
+                df = DecimalFormat("###,###T;-###,###T")
                 textAmount = textAmount.divide(TRILLION, RoundingMode.HALF_UP)
             } else if (amount.compareTo(BILLION) != -1) {
-                df = DecimalFormat("\u00a4###,### B;-\u00a4###,### B")
+                df = DecimalFormat("###,###B;-###,###B")
                 textAmount = textAmount.divide(BILLION, RoundingMode.HALF_UP)
             } else if (amount.compareTo(MILLION) != -1) {
-                df = DecimalFormat("\u00a4###,### M;-\u00a4###,### M")
+                df = DecimalFormat("###,###M;-###,### M")
                 textAmount = textAmount.divide(MILLION, RoundingMode.HALF_UP)
             } else if (amount.compareTo(THOUSANDS) != -1) {
-                df = DecimalFormat("\u00a4###,### K;-\u00a4###,### K")
+                df = DecimalFormat("###,###K;-4###,###K")
                 textAmount = textAmount.divide(THOUSANDS, RoundingMode.HALF_UP)
             }
 
-            return df.format(textAmount)
+            return "MCap ${df.format(textAmount)}"
         }
     }
 }
