@@ -1,5 +1,6 @@
 package com.binarybricks.coinbit.network.api
 
+import com.binarybricks.coinbit.network.API_COINMARKETCAP_KEY
 import com.binarybricks.coinbit.network.API_KEY
 import com.binarybricks.coinbit.network.APP_NAME
 import com.binarybricks.coinbit.network.models.CryptoCompareHistoricalResponse
@@ -110,7 +111,8 @@ interface API {
         @Query("public") public: Boolean
     ): CryptoPanicNews
 
-    @GET("https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest?CMC_PRO_API_KEY=51346ca6-4c36-4265-8f4d-0db249db5d00")
+    @Headers(API_COINMARKETCAP_KEY)
+    @GET("https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest")
     suspend fun getCoinsSortedByMarketCap(
         @Query("limit") limit: Int
     ): JsonObject

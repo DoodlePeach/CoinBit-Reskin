@@ -30,3 +30,4 @@ const val ALL = "All"
 
 const val APP_NAME = "CoinBit"
 const val API_KEY = "authorization: Apikey 525fa1933d3246c3bbd6a8ec96207baf3104c80d12b95a4b4cf9196ece4d3728"
+const val API_COINMARKETCAP_KEY = "X-CMC_PRO_API_KEY: 51346ca6-4c36-4265-8f4d-0db249db5d00"
