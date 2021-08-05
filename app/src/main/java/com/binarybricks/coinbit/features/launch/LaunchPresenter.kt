@@ -12,7 +12,9 @@ import com.binarybricks.coinbit.network.models.NameSymbolSortedPair
 import com.binarybricks.coinbit.network.models.getCoinFromCCCoin
 import com.binarybricks.coinbit.utils.defaultExchange
 import com.google.gson.JsonArray
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import timber.log.Timber
 
 /**
@@ -51,6 +53,22 @@ class LaunchPresenter(
         }
     }
 
+    suspend fun assignValuesFromOneSourceToAnother(coinList: MutableList<WatchedCoin>) {
+        val sortedCoinPairs =
+            NameSymbolSortedPair.fromJSON(api.getCoinsSortedByMarketCap(limit = 5000))
+
+        withContext(Dispatchers.Default){
+            sortedCoinPairs.forEachIndexed { index, nameSymbolSortedPair ->
+                val found = coinList.find { it.coin.symbol == nameSymbolSortedPair.symbol }
+                if (found != null) {
+                    found.circulatingSupply = nameSymbolSortedPair.circulatingSupply
+                    found.position = index + 1
+                }
+            }
+        }
+    }
+
+
     override fun getAllSupportedCoins(defaultCurrency: String) {
         launch {
             try {
@@ -63,16 +81,7 @@ class LaunchPresenter(
                     coinList.add(getCoinFromCCCoin(ccCoin, defaultExchange, defaultCurrency, coinInfo))
                 }
 
-                val sortedCoinPairs =
-                    NameSymbolSortedPair.fromJSON(api.getCoinsSortedByMarketCap(limit = 5000))
-
-                sortedCoinPairs.forEachIndexed { index, nameSymbolSortedPair ->
-                    val found = coinList.find { it.coin.symbol == nameSymbolSortedPair.symbol }
-                    if (found != null) {
-                        found.circulatingSupply = nameSymbolSortedPair.circulatingSupply
-                        found.position = index + 1
-                    }
-                }
+                assignValuesFromOneSourceToAnother(coinList)
 
                 coinRepo.insertCoinsInWatchList(coinList)
 

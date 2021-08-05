@@ -8,7 +8,9 @@ import com.binarybricks.coinbit.network.api.api
 import com.binarybricks.coinbit.network.models.NameSymbolSortedPair
 import com.binarybricks.coinbit.network.models.getCoinFromCCCoin
 import com.binarybricks.coinbit.utils.defaultExchange
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import timber.log.Timber
 
 /**
@@ -19,6 +21,21 @@ class SettingsPresenter(
     private val coinRepo: CryptoCompareRepository
 ) : BasePresenter<SettingsContract.View>(), SettingsContract.Presenter {
 
+    suspend fun assignValuesFromOneSourceToAnother(coinList: MutableList<WatchedCoin>) {
+        val sortedCoinPairs =
+            NameSymbolSortedPair.fromJSON(api.getCoinsSortedByMarketCap(limit = 5000))
+
+        withContext(Dispatchers.Default){
+            sortedCoinPairs.forEachIndexed { index, nameSymbolSortedPair ->
+                val found = coinList.find { it.coin.symbol == nameSymbolSortedPair.symbol }
+                if (found != null) {
+                    found.circulatingSupply = nameSymbolSortedPair.circulatingSupply
+                    found.position = index + 1
+                }
+            }
+        }
+    }
+
     override fun refreshCoinList(defaultCurrency: String) {
         launch {
             try {
@@ -28,17 +45,6 @@ class SettingsPresenter(
                 ccCoinList.forEach { ccCoin ->
                     val coinInfo = allCoinsFromAPI.second[ccCoin.symbol.toLowerCase()]
                     coinList.add(getCoinFromCCCoin(ccCoin, defaultExchange, defaultCurrency, coinInfo))
-                }
-
-                val sortedCoinPairs =
-                    NameSymbolSortedPair.fromJSON(api.getCoinsSortedByMarketCap(limit = 5000))
-
-                sortedCoinPairs.forEachIndexed { index, nameSymbolSortedPair ->
-                    val found = coinList.find { it.coin.symbol == nameSymbolSortedPair.symbol }
-                    if (found != null) {
-                        found.circulatingSupply = nameSymbolSortedPair.circulatingSupply
-                        found.position = index + 1
-                    }
                 }
 
                 coinRepo.insertCoinsInWatchList(coinList)
