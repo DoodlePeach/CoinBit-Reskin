@@ -38,6 +38,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.crashlytics.FirebaseCrashlytics
 import kotlinx.android.synthetic.main.fragment_coin_details.*
 import java.math.BigDecimal
+import kotlin.math.absoluteValue
 
 class CoinFragment : Fragment(), CoinContract.View, CryptoNewsContract.View, CoinTickerContract.View {
 
@@ -209,8 +210,10 @@ class CoinFragment : Fragment(), CoinContract.View, CryptoNewsContract.View, Coi
     }
 
     override fun onCoinPriceLoaded(coinPrice: CoinPrice?, watchedCoin: WatchedCoin) {
+        // Sometimes the supply is negative and we don't want that.
+        val withPositiveEnsuredSupply = coinPrice?.copy(supply = coinPrice.supply?.absoluteValue)
 
-        this.coinPrice = coinPrice
+        this.coinPrice = withPositiveEnsuredSupply
 
         coinDetailList.add(CoinHistoricalChartItemView.HistoricalChartModuleData(coinPrice, HOUR, watchedCoin.coin.symbol, null))
 

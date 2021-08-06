@@ -15,6 +15,7 @@ import com.binarybricks.coinbit.utils.Formaters
 import com.binarybricks.coinbit.utils.resourcemanager.AndroidResourceManager
 import com.binarybricks.coinbit.utils.resourcemanager.AndroidResourceManagerImpl
 import java.util.*
+import kotlin.math.absoluteValue
 
 @ModelView(autoLayout = ModelView.Size.MATCH_WIDTH_WRAP_HEIGHT)
 class CoinStatsticsItemView @JvmOverloads constructor(
@@ -99,7 +100,8 @@ class CoinStatsticsItemView @JvmOverloads constructor(
 
         tvSupplyNumber.text = androidResourceManager.getString(
             R.string.twoTextWithSpace,
-            formatter.formatNumber(coinPrice.supply ?: 0) ?: "", coinPrice.fromSymbol ?: ""
+            formatter.formatNumber(coinPrice.supply?.absoluteValue ?: 0) ?: "",
+            coinPrice.fromSymbol ?: ""
         )
     }
 
