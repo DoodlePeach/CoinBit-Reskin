@@ -117,7 +117,7 @@ class CoinFragment : Fragment(), CoinContract.View, CryptoNewsContract.View, Coi
             lifecycle.addObserver(cryptoNewsPresenter)
             lifecycle.addObserver(coinTickerPresenter)
 
-            val toolBarDefaultElevation = dpToPx(context, 12) // default elevation of toolbar
+            val toolBarDefaultElevation = dpToPx(context, 12.00) // default elevation of toolbar
 
             rvCoinDetails.addOnScrollListener(object : OnVerticalScrollListener() {
                 override fun onScrolled(offset: Int) {

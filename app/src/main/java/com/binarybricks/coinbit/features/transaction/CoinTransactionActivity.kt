@@ -345,7 +345,7 @@ class CoinTransactionActivity : AppCompatActivity(), CoinTransactionContract.Vie
 
         coinTransactionPresenter.getPriceForPair(
             coin?.symbol ?: "",
-            toCurrencies, exchangeName, (transactionDate.timeInMillis / 1000).toInt().toString()
+            toCurrencies, exchangeName, (transactionDate.timeInMillis / 1000).toDouble().toString()
         )
     }
 

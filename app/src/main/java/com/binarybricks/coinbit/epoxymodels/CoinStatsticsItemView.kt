@@ -62,33 +62,33 @@ class CoinStatsticsItemView @JvmOverloads constructor(
         tvOpenAmount.text = formatter.formatAmount(
             coinPrice.openDay
                 ?: "0",
-            currency, true
+            currency, false
         )
         tvTodaysHighAmount.text = formatter.formatAmount(
             coinPrice.highDay
                 ?: "0",
-            currency, true
+            currency, false
         )
         tvTodayLowAmount.text = formatter.formatAmount(
             coinPrice.lowDay
                 ?: "0",
-            currency, true
+            currency, false
         )
         tvChangeTodayAmount.text = formatter.formatAmount(
             coinPrice.changeDay
                 ?: "0",
-            currency, true
+            currency, false
         )
 
         tvVolumeQuantity.text = formatter.formatAmount(
             coinPrice.volumneDay
                 ?: "0",
-            currency, true
+            currency, false
         )
         tvAvgVolumeAmount.text = formatter.formatAmount(
             coinPrice.totalVolume24Hour
                 ?: "0",
-            currency, true
+            currency, false
         )
 
         tvAvgMarketCapAmount.text = formatter.formatAmount(

@@ -52,7 +52,7 @@ fun getCoinFromCCCoin(ccCoin: CCCoin, defaultExchange: String, defaultCurrency: 
     val coin = Coin(
         ccCoin.id, ccCoin.url, ccCoin.imageUrl, ccCoin.name, ccCoin.symbol, ccCoin.coinName,
         ccCoin.fullName, ccCoin.algorithm, ccCoin.proofType, ccCoin.fullyPremined,
-        ccCoin.totalCoinSupply, ccCoin.preMinedValue, ccCoin.totalCoinsFreeFloat, ccCoin.sortOrder.toInt(),
+        ccCoin.totalCoinSupply, ccCoin.preMinedValue, ccCoin.totalCoinsFreeFloat, ccCoin.sortOrder.toDouble(),
         ccCoin.sponsored, ccCoin.isTrading, coinInfo?.desc, coinInfo?.twt, coinInfo?.web, coinInfo?.reddit, coinInfo?.forum, coinInfo?.github
     )
 

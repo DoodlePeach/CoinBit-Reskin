@@ -64,10 +64,7 @@ class TopCardItemView @JvmOverloads constructor(
             topCardsModuleData.priceChangePercentage.toDouble()
         )
 
-        tvMarketCap.text = androidResourceManager.getString(
-            R.string.marketCap,
-            CoinBitExtendedCurrency.getAmountTextForDisplay(BigDecimal(topCardsModuleData.marketCap), currency)
-        )
+        tvMarketCap.text = CoinBitExtendedCurrency.getAmountTextForDisplay(BigDecimal(topCardsModuleData.marketCap), currency)
 
         topCardContainer.setOnClickListener {
             onTopItemClickedListener?.onItemClicked(topCardsModuleData.coinSymbol)

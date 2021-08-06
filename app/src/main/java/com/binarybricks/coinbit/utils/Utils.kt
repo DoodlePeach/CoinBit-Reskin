@@ -39,11 +39,12 @@ fun openCustomTab(url: String, context: Context) {
     customTabsIntent.launchUrl(context, Uri.parse(url))
 }
 
-fun dpToPx(context: Context?, dp: Int): Int {
+fun dpToPx(context: Context?, dp: Double): Double {
 
     if (context != null) {
         val r = context.resources
-        return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp.toFloat(), r.displayMetrics).toInt()
+        return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp.toFloat(), r.displayMetrics)
+                .toDouble()
     }
     return dp
 }
