@@ -7,9 +7,9 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:88968519859:android:d1d0b90a1b4fb39158d0c6",
+        "mobilesdk_app_id": "1:88968519859:android:ab94d7b6ef8bd28a58d0c6",
         "android_client_info": {
-          "package_name": "com.binarybricks.coinbit"
+          "package_name": "com.crypto.tracker"
         }
       },
       "oauth_client": [

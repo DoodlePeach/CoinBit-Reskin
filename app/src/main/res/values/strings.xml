@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">CoinBit</string>
+    <string name="app_name">Crypto Market Tracker</string>
 
     <!-- formatted strings -->
     <string name="amountWithChangePercentage">%1$s (%2$s%%)</string>
