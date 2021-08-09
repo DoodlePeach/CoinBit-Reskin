@@ -11,7 +11,7 @@ apply plugin: "com.github.ben-manes.versions"
 android {
     compileSdkVersion versions.compileSdk
     defaultConfig {
-        applicationId 'com.crypto.tracker'
+        applicationId 'com.brainjames.cryptomarkettracker'
         minSdkVersion versions.minSdk
         targetSdkVersion versions.targetSdk
         multiDexEnabled true
