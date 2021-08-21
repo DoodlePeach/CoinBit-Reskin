@@ -24,7 +24,7 @@ Modifications:
 * Sorted coins by market capitalization.
 * Replaced news feed with a native advertisment widget.
 * Renamed Market Cap to MCap in top cards.
-* Fixed a bug which led to the application crashing when adding/removing coins and neavigating to this page.
+* Fixed a bug which led to the application crashing when adding/removing coins and navigating to this page.
 <p align="middle">
     <img src="images/home.jpg" width="27%"/>
 </p>
@@ -34,7 +34,7 @@ Modifications:
 Modifications:
 * Removed licenses.
 * Added in logout functionality.
-* Improved performace by moving coin related I/O operations to a Dispatcher.
+* Improved performance by moving coin related I/O operations to a Dispatcher.
 <p align="middle">
     <img src="images/settings.jpg" width="27%"/>
 </p>
